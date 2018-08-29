@@ -30,6 +30,7 @@ public class RunningDataActivity extends Activity {
             int minutes = seconds / 60;
             seconds     = seconds % 60;
             int hours = minutes / 60 ;
+            minutes   = minutes % 60 ;
 
             text.setText(String.format("%d:%02d:%02d",hours, minutes, seconds));
             return false;
@@ -89,6 +90,12 @@ public class RunningDataActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_running_data);
+        starttime = System.currentTimeMillis();
+
+        timer = new Timer();
+        timer.schedule(new firstTask(), 0,500);
+        timer.schedule(new secondTask(),  0,500);
+        h2.postDelayed(run, 0);
 
         text = (TextView)findViewById(R.id.text);
         text2 = (TextView)findViewById(R.id.text2);
