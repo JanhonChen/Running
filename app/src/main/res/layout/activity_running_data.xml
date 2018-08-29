@@ -1,25 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<LinearLayout xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/runningView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:background="@color/cardview_light_background"
+    android:gravity="center"
     >
 
-
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="0dp"
+        tools:targetApi="o">
     <TextView
-        android:id="@+id/timer"
-        android:layout_margin="50dp"
-        android:padding="16dp"
+        android:id="@+id/text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/timeStart"
         android:textSize="70sp"
-        android:textColor="@color/colorPrimary"
-        android:layout_gravity="center">
+        android:gravity="center_horizontal"
+        android:textColor="@color/colorPrimary">
     </TextView>
+
+    <TextView
+        android:id="@+id/text2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/timeStart"
+        android:textSize="70sp"
+        android:textColor="@color/colorPrimary"
+        android:layout_toEndOf="@id/text">
+    </TextView>
+
+    <TextView
+        android:id="@+id/text3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/timeStart"
+        android:textSize="70sp"
+        android:textColor="@color/colorPrimary"
+        android:layout_toEndOf="@id/text2" >
+    </TextView>
+
+
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/kiloMeter"
@@ -36,11 +63,11 @@
 
     <Button
         android:id="@+id/btPause"
+        android:layout_marginBottom="30dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_margin="70dp"
-        android:gravity="fill_horizontal"
+        android:onClick="onPauseClick"
         android:background="@drawable/baseline_pause_circle_outline_white_48dp"
         />
 
