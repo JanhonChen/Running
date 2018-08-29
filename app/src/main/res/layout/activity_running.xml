@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Running.RunningActivity"
+    android:id="@+id/container"
+    android:orientation="vertical">
+
+    <!--此layout容器擔任Fragment停駐點-->
+    <FrameLayout
+        android:id="@+id/body"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+       />
+
+
+    <!-- 加上windowBackground後會有框線 -->
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="?android:attr/windowBackground"
+        app:menu="@menu/navigate_menu"
+        app:itemBackground="@color/colorPrimary"
+        app:itemIconTint="@color/cardview_light_background"
+        android:foregroundGravity="center_horizontal"
+        android:textAlignment="center"
+        android:paddingBottom="@dimen/cardview_compat_inset_shadow"
+        app:itemTextColor="@color/cardview_light_background"
+
+
+
+        />
+
+</LinearLayout>

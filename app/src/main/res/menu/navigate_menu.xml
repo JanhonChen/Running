@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/item_Sport"
+        android:icon="@drawable/ic_sport"
+        android:title="@string/textSubmit" />
+
+    <item
+        android:id="@+id/item_Filled"
+        android:icon="@drawable/ic_filled"
+        android:title="@string/textFilled" />
+
+
+    <item
+        android:id="@+id/item_FriendShip"
+        android:icon="@drawable/ic_friendship"
+        android:title="@string/textFriendShip" />
+
+    <item
+        android:id="@+id/item_Shop"
+        android:icon="@drawable/ic_shop"
+        android:title="@string/textShop" />
+
+    <item
+        android:id="@+id/item_User"
+        android:icon="@drawable/ic_user"
+        android:title="@string/textUser" />
+
+</menu>
