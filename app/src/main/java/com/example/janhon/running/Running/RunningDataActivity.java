@@ -12,127 +12,74 @@ import android.os.Message;
 import android.os.Handler.Callback;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import com.example.janhon.running.R;
 
+// CP102 陳建宏
 public class RunningDataActivity extends Activity {
-    TextView text, text2, text3;
-    long starttime = 0;
+    TextView timerTextView;
+    long startTime ;
 
-    //this  posts a message to the main thread from our timertask
-    //and updates the textfield
-    final Handler h = new Handler(new Callback() {
+
+    //runs without a timer by reposting this handler at the end of the runnable
+    Handler timerHandler = new Handler();  //將訊息與執行緒合併
+    Runnable timerRunnable = new Runnable() {  //新執行緒
 
         @Override
-        public boolean handleMessage(Message msg) {
-            long millis = System.currentTimeMillis() - starttime;
+        public void run() {   //內部匿名類別
+            long millis = System.currentTimeMillis() - startTime;
             int seconds = (int) (millis / 1000);
             int minutes = seconds / 60;
-            seconds     = seconds % 60;
-            int hours = minutes / 60 ;
-            minutes   = minutes % 60 ;
-
-            text.setText(String.format("%d:%02d:%02d",hours, minutes, seconds));
-            return false;
-        }
-    });
-    //runs without timer be reposting self
-    Handler h2 = new Handler();
-    Runnable run = new Runnable() {
-
-        @Override
-        public void run() {
-            long millis = System.currentTimeMillis() - starttime;
-            int seconds = (int) (millis / 1000);
-            int minutes = seconds / 60;
-            seconds     = seconds % 60;
-            int hours = minutes / 60 ;
-
-            //text3.setText(String.format("%d:%d:%02d",hours, minutes, seconds));
-
-            h2.postDelayed(this, 500);
-        }
-    };
-
-    //tells handler to send a message
-    class firstTask extends TimerTask {
-
-        @Override
-        public void run() {
-            h.sendEmptyMessage(0);
-        }
-    };
-
-    //tells activity to run on ui thread
-    class secondTask extends TimerTask {
-
-        @Override
-        public void run() {
-            RunningDataActivity.this.runOnUiThread(new Runnable() {
-
-                @Override
-                public void run() {
-                    long millis = System.currentTimeMillis() - starttime;
-                    int seconds = (int) (millis / 1000);
-                    int minutes = seconds / 60;
-                    seconds     = seconds % 60;
-
-                   // text2.setText(String.format("%d:%02d", minutes, seconds));
-                }
-            });
+            seconds = seconds % 60;
+            int hours = minutes /60;
+            minutes = minutes % 60 ;
+            timerTextView.setText(String.format("%d:%02d:%02d",hours, minutes, seconds));
+            timerHandler.postDelayed(this, 500);
         }
     };
 
 
-    Timer timer = new Timer();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_running_data);
-        starttime = System.currentTimeMillis();
 
-        timer = new Timer();
-        timer.schedule(new firstTask(), 0,500);
-        timer.schedule(new secondTask(),  0,500);
-        h2.postDelayed(run, 0);
-
-        text = (TextView)findViewById(R.id.text);
-        text2 = (TextView)findViewById(R.id.text2);
-        text3 = (TextView)findViewById(R.id.text3);
-
-        Button b = (Button)findViewById(R.id.btPause);
-        //b.setText("start");
-        b.setOnClickListener(new View.OnClickListener() {
+        startTime = System.currentTimeMillis();   //設定起始時間為0
+        timerHandler.postDelayed(timerRunnable, 0);
+        timerTextView = (TextView) findViewById(R.id.text);
+        Button button = (Button)findViewById(R.id.btPause);
+        Button button1 = (Button)findViewById(R.id.btPlay);
+        button1.setVisibility(button1.GONE);
+        button.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                Button b = (Button)v;
-                if(b.getText().equals("stop")){
-                    timer.cancel();
-                    timer.purge();
-                    h2.removeCallbacks(run);
-                   // b.setText("start");
-                }else{
-                    starttime = System.currentTimeMillis();
-                    timer = new Timer();
-                    timer.schedule(new firstTask(), 0,500);
-                    timer.schedule(new secondTask(),  0,500);
-                    h2.postDelayed(run, 0);
-                   // b.setText("stop");
-                }
+                onPauseClick(v);
             }
         });
     }
 
     public void onPauseClick(View view) {
         super.onPause();
-        timer.cancel();
-        timer.purge();
-        h2.removeCallbacks(run);
-        Button b = (Button)findViewById(R.id.btPause);
-        //b.setText("start");
+        Button button = (Button)findViewById(R.id.btPause);  //將暫停鈕移除
+        button.setVisibility(View.GONE);
+        timerHandler.removeCallbacks(timerRunnable);  //移除執行緒
+        Button button1 = (Button)findViewById(R.id.btPlay);  //將繼續鈕置入
+        button1.setVisibility(View.VISIBLE);
 
+
+    }
+
+    public void onPlayClick(View view) {
+
+        timerHandler.postDelayed(timerRunnable, 0);
+        timerTextView = (TextView) findViewById(R.id.text);
+        Button button1 = (Button)findViewById(R.id.btPlay);
+        button1.setVisibility(View.GONE);
+        Button button = (Button)findViewById(R.id.btPause);
+        button.setVisibility(View.VISIBLE);
     }
 
 }
