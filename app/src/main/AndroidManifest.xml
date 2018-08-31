@@ -38,20 +38,6 @@
             </intent-filter>
         </activity>
 
-        <!--
-        <activity
-            android:name=".MapTypeUiSettingsActivity"
-            android:label="@string/title_MapTypeUiSettings" />
-        <activity
-            android:name=".MarkersActivity"
-            android:label="@string/title_Markers" />
-        <activity
-            android:name=".RunningFragment"
-            android:label="@string/title_MapDraw2D" />
-        <activity
-            android:name=".GeocoderActivity"
-            android:label="@string/title_Geocoder" />
-        -->
 
         <activity android:name=".Running.RunningDataActivity"></activity>
     </application>
