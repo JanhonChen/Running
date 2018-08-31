@@ -25,6 +25,7 @@ public class RunningDataActivity extends Activity {
     //runs without a timer by reposting this handler at the end of the runnable
     Handler timerHandler = new Handler();  //將訊息與執行緒合併
     Runnable timerRunnable = new Runnable() {  //新執行緒
+        //抓時間的類別.TimeStamp
 
         @Override
         public void run() {   //內部匿名類別
